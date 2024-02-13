@@ -20,7 +20,7 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/",
                                 "/articles",
-                                "/articles/search-hashtag"
+                                "/articles/detail"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
