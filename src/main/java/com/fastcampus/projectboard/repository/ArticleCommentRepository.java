@@ -1,5 +1,4 @@
 package com.fastcampus.projectboard.repository;
-
 import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.domain.QArticleComment;
 import com.querydsl.core.types.dsl.DateTimeExpression;
@@ -21,13 +20,11 @@ public interface ArticleCommentRepository extends
     List<ArticleComment> findByArticle_Id(Long articleId);
 
     @Override
-    default void customize(QuerydslBindings bindings, QArticleComment root){
+    default void customize(QuerydslBindings bindings, QArticleComment root) {
         bindings.excludeUnlistedProperties(true);
         bindings.including(root.content, root.createdAt, root.createdBy);
-        bindings.bind(root.content).first(StringExpression::containsIgnoreCase);//대소문자 구분 X, like '%${v}%'
+        bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
-
-
 }
