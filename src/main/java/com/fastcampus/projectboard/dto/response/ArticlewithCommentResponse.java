@@ -43,7 +43,7 @@ public record ArticleWithCommentsResponse(
                 dto.userAccountDto().email(),
                 nickname,
                 dto.userAccountDto().userId(),
-                organizeChildComments(dto.articleCommentDtos())
+                organizeChildComments(dto.ArticleCommentDto())
         );
     }
 

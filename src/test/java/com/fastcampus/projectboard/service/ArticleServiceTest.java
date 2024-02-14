@@ -2,9 +2,12 @@ package com.fastcampus.projectboard.service;
 
 
 import com.fastcampus.projectboard.domain.Article;
+import com.fastcampus.projectboard.domain.Hashtag;
+import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.domain.type.SearchType;
 import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
+import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +18,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.util.ReflectionTestUtils;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -78,6 +84,9 @@ class ArticleServiceTest {
                 .hasFieldOrPropertyWithValue("hashtag", article.getHashtag());
         then(articleRepository).should().findById(articleId);
     }
+
+
+
     @DisplayName("없는 게시글을 조회하면, 예외를 던진다.")
     @Test
     void givenNonexistentArticleId_whenSearchingArticle_thenThrowException(){
@@ -100,7 +109,7 @@ class ArticleServiceTest {
     @Test
     void givenArticleInfo_whenSavingArticle_thenSavesArticle(){
         //Given
-        ArticleDto dto = createArticleDto();
+        ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "#springboot");
         given(articleRepository.save(any(Article.class))).willReturn(createArticle());
 
         //When
@@ -110,6 +119,9 @@ class ArticleServiceTest {
         then(articleRepository).should().save(any(Article.class));
 
     }
+
+
+
     @DisplayName("게시글의 수정 정보를 입력하면, 게시글을 수정한다.")
     @Test
     void givenModifiedArticleInfo_whenUpdatingArticle_thenUpdatesArticle(){
@@ -158,4 +170,77 @@ class ArticleServiceTest {
 
     }
 
+    private Article createArticle() {
+        return createArticle(1L);
+    }
+
+    private Article createArticle(Long id) {
+        Article article = Article.of(
+                createUserAccount(),
+                "title",
+                "content"
+        );
+        article.addHashtags(Set.of(
+                createHashtag(1L, "java"),
+                createHashtag(2L, "spring")
+        ));
+        ReflectionTestUtils.setField(article, "id", id);
+
+        return article;
+    }
+
+    private Hashtag createHashtag(String hashtagName) {
+        return createHashtag(1L, hashtagName);
+    }
+
+    private Hashtag createHashtag(Long id, String hashtagName) {
+        Hashtag hashtag = Hashtag.of(hashtagName);
+        ReflectionTestUtils.setField(hashtag, "id", id);
+
+        return hashtag;
+    }
+
+    private UserAccount createUserAccount() {
+        return createUserAccount("uno");
+    }
+
+    private UserAccount createUserAccount(String userId) {
+        return UserAccount.of(
+                userId,
+                "password",
+                "uno@email.com",
+                "Uno",
+                null
+        );
+    }
+    private ArticleDto createArticleDto(String 새_타이틀, String 새_내용, String hashtag) {
+        return createArticleDto("title", "content");
+    }
+
+    private ArticleDto createArticleDto(String title, String content) {
+        return ArticleDto.of(
+                1L,
+                createUserAccountDto(),
+                title,
+                content,
+                null,
+                LocalDateTime.now(),
+                "Uno",
+                LocalDateTime.now(),
+                "Uno");
+    }
+
+    private UserAccountDto createUserAccountDto() {
+        return UserAccountDto.of(
+                "uno",
+                "password",
+                "uno@mail.com",
+                "Uno",
+                "This is memo",
+                LocalDateTime.now(),
+                "uno",
+                LocalDateTime.now(),
+                "uno"
+        );
+    }
 }
