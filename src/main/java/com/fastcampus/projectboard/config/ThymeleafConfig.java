@@ -10,25 +10,26 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 public class ThymeleafConfig {
-        @Bean
-        public SpringResourceTemplateResolver thymeleafTemplateResolver(
-                SpringResourceTemplateResolver defaultTemplateResolver,
-                Thymeleaf3Properties thymeleaf3Properties
-        ) {
-            defaultTemplateResolver.setUseDecoupledLogic(thymeleaf3Properties.isDecoupledLogic());
 
-            return defaultTemplateResolver;
-        }
+    @Bean
+    public SpringResourceTemplateResolver thymeleafTemplateResolver(
+            SpringResourceTemplateResolver defaultTemplateResolver,
+            Thymeleaf3Properties thymeleaf3Properties
+    ) {
+        defaultTemplateResolver.setUseDecoupledLogic(thymeleaf3Properties.isDecoupledLogic());
 
-
-        @RequiredArgsConstructor
-        @Getter
-        @ConfigurationProperties("spring.thymeleaf3")
-        public static class Thymeleaf3Properties {
-            /**
-             * Use Thymeleaf 3 Decoupled Logic
-             */
-            private final boolean decoupledLogic;
-        }
-
+        return defaultTemplateResolver;
     }
+
+
+    @RequiredArgsConstructor
+    @Getter
+    @ConfigurationProperties("spring.thymeleaf3")
+    public static class Thymeleaf3Properties {
+        /**
+         * Use Thymeleaf 3 Decoupled Logic
+         */
+        private final boolean decoupledLogic;
+    }
+
+}
