@@ -2,7 +2,6 @@ package com.fastcampus.projectboard.controller;
 
 
 
-
 import com.fastcampus.projectboard.config.SecurityConfig;
 
 import org.junit.jupiter.api.Test;

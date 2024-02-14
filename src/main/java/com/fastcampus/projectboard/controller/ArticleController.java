@@ -2,7 +2,9 @@ package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.domain.type.SearchType;
 import com.fastcampus.projectboard.dto.response.ArticleResponse;
-import com.fastcampus.projectboard.dto.response.ArticleWithCommentResponse;
+
+import com.fastcampus.projectboard.dto.response.ArticleWithCommentsResponse;
+
 import com.fastcampus.projectboard.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +38,9 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap map) {
-        ArticleWithCommentResponse article = ArticleWithCommentResponse.from(articleService.getArticle(articleId));
+
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
+
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentsResponse());
 
