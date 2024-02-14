@@ -1,27 +1,26 @@
 package com.fastcampus.projectboard.dto.response;
 
-import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public record ArticleCommentResponse (
-    Long id,
-    String content,
-    LocalDateTime createdAt,
-    String email,
-    String nickname
+public record ArticleCommentResponse(
+        Long id,
+        String content,
+        LocalDateTime createdAt,
+        String email,
+        String nickname
 ) implements Serializable {
 
     public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname) {
-        return ArticleCommentResponse.of(id, content, createdAt, email, nickname);
+        return new ArticleCommentResponse(id, content, createdAt, email, nickname);
     }
 
-    public static ArticleCommentResponse from(ArticleCommentDto dto){
+    public static ArticleCommentResponse from(ArticleCommentDto dto) {
         String nickname = dto.userAccountDto().nickname();
-        if(nickname == null || nickname.isBlank()){
-            nickname = dto.userAccountDto().userId;
+        if (nickname == null || nickname.isBlank()) {
+            nickname = dto.userAccountDto().userId();
         }
 
         return new ArticleCommentResponse(
@@ -32,4 +31,5 @@ public record ArticleCommentResponse (
                 nickname
         );
     }
+
 }
