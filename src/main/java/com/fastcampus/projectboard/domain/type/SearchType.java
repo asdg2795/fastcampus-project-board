@@ -15,4 +15,4 @@ public enum SearchType {
         this.description = description;
     }
 
-}
+    }

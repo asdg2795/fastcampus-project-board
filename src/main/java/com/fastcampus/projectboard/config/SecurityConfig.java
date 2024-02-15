@@ -19,7 +19,9 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/",
-                                "/articles"
+                                "/articles",
+                                "/articles/",
+                                "/articles/search-hashtag"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
