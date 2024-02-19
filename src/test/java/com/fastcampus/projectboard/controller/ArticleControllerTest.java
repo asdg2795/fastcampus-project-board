@@ -5,7 +5,6 @@ import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.service.ArticleService;
 import com.fastcampus.projectboard.service.PaginationService;
-import com.fastcampus.projectboard.util.FormDataEncoder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,13 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ArticleController.class)
 class ArticleControllerTest {
     private final MockMvc mvc;
-
     @MockBean private ArticleService articleService;
     @MockBean private PaginationService paginationService;
-    public ArticleControllerTest(
-            @Autowired MockMvc mvc,
-            @Autowired FormDataEncoder formDataEncoder
-    ) {
+    public ArticleControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
     }
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
@@ -204,7 +199,7 @@ class ArticleControllerTest {
         );
     }
     private UserAccountDto createUserAccountDto() {
-        return UserAccountDto.of(
+        return UserAccountDto.of(1L,
                 "uno",
                 "pw",
                 "uno@mail.com",
