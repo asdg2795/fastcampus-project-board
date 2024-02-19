@@ -18,7 +18,7 @@ import java.util.Objects;
 public class UserAccount extends AuditingFields {
     @Id
     @Column(length = 50)
-    private String  userId;
+    private String userId;
 
     @Setter @Column(nullable = false) private String userPassword;
 
