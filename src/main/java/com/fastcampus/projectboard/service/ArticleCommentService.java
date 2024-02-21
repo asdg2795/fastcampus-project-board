@@ -12,17 +12,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
 @Service
 public class ArticleCommentService {
-    private final UserAccountRepository userAccountRepository;
+
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
+    private final UserAccountRepository userAccountRepository;
 
     @Transactional(readOnly = true)
     public List<ArticleCommentDto> searchArticleComments(Long articleId) {
@@ -50,9 +49,7 @@ public class ArticleCommentService {
             log.warn("댓글 업데이트 실패. 댓글을 찾을 수 없습니다 - dto: {}", dto);
         }
     }
-
     public void deleteArticleComment(Long articleCommentId) {
         articleCommentRepository.deleteById(articleCommentId);
     }
-
 }

@@ -44,8 +44,6 @@ class ArticleCommentControllerTest {
     }
 
 
-
-
     @DisplayName("[view][POST] 댓글 등록 - 정상 호출")
     @Test
     void givenArticleCommentInfo_whenRequesting_thenSavesNewArticleComment() throws Exception {
