@@ -17,11 +17,22 @@ public class SecurityConfig {
                         .requestMatchers(
                                 PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(
+                                HttpMethod.POST,
+                                "/articles/form",
+                                "/articles/{articleId}/delete",
+                                "/articles/{articleId}/form",
+                                "/comments",
+                                "/comments/new",
+                                "/comments/{articleId}/delete"
+                        ).permitAll()
+                        .requestMatchers(
                                 HttpMethod.GET,
                                 "/",
                                 "/articles",
-                                "/articles/",
+                                "/articles/{articleId}",
+                                "/articles/{articleId}/form",
                                 "/articles/search-hashtag"
+
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
