@@ -41,17 +41,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ArticleControllerTest {
 
     private final MockMvc mvc;
-<<<<<<< HEAD
     private final FormDataEncoder formDataEncoder;
 
     @MockBean private ArticleService articleService;
     @MockBean private PaginationService paginationService;
 
-=======
-
-    @MockBean private ArticleService articleService;
-    @MockBean private PaginationService paginationService;
->>>>>>> parent of c8d90a0 (Revert "#34 -  회원 계정 도메인 변경사항을 영향받는 코드에 적용")
     public ArticleControllerTest(
             @Autowired MockMvc mvc,
             @Autowired FormDataEncoder formDataEncoder
@@ -131,7 +125,7 @@ class ArticleControllerTest {
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
         // Given
-        Long articleId = 1L;
+        long articleId = 1L;
         long totalCount = 1L;
         given(articleService.getArticleWithComments(articleId)).willReturn(createArticleWithCommentsDto());
         given(articleService.getArticleCount()).willReturn(totalCount);
