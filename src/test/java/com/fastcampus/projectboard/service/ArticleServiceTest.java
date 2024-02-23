@@ -26,8 +26,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 @DisplayName("비즈니스 로직 - 게시글")
 @ExtendWith(MockitoExtension.class)
+//Mockito 테스트를 실행하 때 Mockito의 기능을 확장하기 위해 필요
 class ArticleServiceTest {
     @InjectMocks private ArticleService sut;
+    //Mockito의 모의 객체(Mock Objects)를 주입하는 데에 사용
     @Mock private ArticleRepository articleRepository;
     @Mock private UserAccountRepository userAccountRepository;
     @DisplayName("검색어 없이 게시글을 검색하면, 게시글 페이지를 반환한다.")
@@ -36,6 +38,7 @@ class ArticleServiceTest {
         // Given
         Pageable pageable = Pageable.ofSize(20);
         given(articleRepository.findAll(pageable)).willReturn(Page.empty());
+        //메서드가 호출될 때 `Page.empty()`를 반환하도록 설정
         // When
         Page<ArticleDto> articles = sut.searchArticles(null, null, pageable);
         // Then
@@ -92,6 +95,7 @@ class ArticleServiceTest {
         // Then
         assertThat(dto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
+                //`dto`의 `title` 속성이 `article.getTitle()`의 값과 일치하는지 확인
                 .hasFieldOrPropertyWithValue("content", article.getContent())
                 .hasFieldOrPropertyWithValue("hashtag", article.getHashtag());
         then(articleRepository).should().findById(articleId);
@@ -102,8 +106,10 @@ class ArticleServiceTest {
         // Given
         Long articleId = 0L;
         given(articleRepository.findById(articleId)).willReturn(Optional.empty());
+        //Optional : 값이 있을 수도 있고 없을 수도 있다.
         // When
         Throwable t = catchThrowable(() -> sut.getArticleWithComments(articleId));
+        //Throwable : 클래스는 Java에서 모든 예외와 오류의 슈퍼 클래스입니다.
         // Then
         assertThat(t)
                 .isInstanceOf(EntityNotFoundException.class)
@@ -126,6 +132,7 @@ class ArticleServiceTest {
                 .hasFieldOrPropertyWithValue("hashtag", article.getHashtag());
         then(articleRepository).should().findById(articleId);
     }
+
     @DisplayName("게시글이 없으면, 예외를 던진다.")
     @Test
     void givenNonexistentArticleId_whenSearchingArticle_thenThrowsException() {
@@ -140,6 +147,7 @@ class ArticleServiceTest {
                 .hasMessage("게시글이 없습니다 - articleId: " + articleId);
         then(articleRepository).should().findById(articleId);
     }
+
     @DisplayName("게시글 정보를 입력하면, 게시글을 생성한다.")
     @Test
     void givenArticleInfo_whenSavingArticle_thenSavesArticle() {
@@ -153,6 +161,7 @@ class ArticleServiceTest {
         then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
         then(articleRepository).should().save(any(Article.class));
     }
+
     @DisplayName("게시글의 수정 정보를 입력하면, 게시글을 수정한다.")
     @Test
     void givenModifiedArticleInfo_whenUpdatingArticle_thenUpdatesArticle() {
