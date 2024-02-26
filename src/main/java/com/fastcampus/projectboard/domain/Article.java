@@ -78,7 +78,7 @@ public class Article extends AuditingFields {
         if (!(o instanceof Article that)) return false;
         // 비교하려는 객체 `o`가 `Article` 클래스의 인스턴스인지 확인
         // 그렇지 않다면 `false`를 반환합니다. 동시에 `that` 변수에 캐스팅된 객체를 할당
-        return id != null && id.equals(that.getId());
+        return this.getId() != null && this.getId().equals(that.getId());
         // 객체의 기본 키(`id`)가 `null`이 아니고,
         // 두 객체의 기본 키가 서로 같은지 확인
         // 두 객체의 기본 키가 동일하면 `true`를 반환하고, 그렇지 않으면 `false`를 반환
@@ -86,6 +86,6 @@ public class Article extends AuditingFields {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 }
