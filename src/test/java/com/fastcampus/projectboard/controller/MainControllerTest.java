@@ -40,7 +40,7 @@ class MainControllerTest {
 
 
 
-    public MainControllerTest(@Autowired MockMvc mvc) {
+    MainControllerTest(@Autowired MockMvc mvc) {
 
         this.mvc = mvc;
 

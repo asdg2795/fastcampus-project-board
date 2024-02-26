@@ -1,4 +1,5 @@
 package com.fastcampus.projectboard.controller;
+
 import com.fastcampus.projectboard.domain.constant.FormStatus;
 import com.fastcampus.projectboard.domain.constant.SearchType;
 import com.fastcampus.projectboard.dto.request.ArticleRequest;
