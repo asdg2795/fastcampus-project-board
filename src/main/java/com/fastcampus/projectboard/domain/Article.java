@@ -25,7 +25,10 @@ public class Article extends AuditingFields {
     // `GenerationType.IDENTITY`는 데이터베이스의 자동 증가(AI) 기능을 사용하여 기본 키 값을 생성하도록 지정
     private Long id;
 
-    @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId") private UserAccount userAccount; // 유저 정보 (ID)
+    @Setter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
+    private UserAccount userAccount; // 유저 정보 (ID)   .
     // @Setter : 해당 필드에 대한 setter메서드를 자동으로 생성
     // @ManyToOne(optional = false) : 다대일 관계를 나타냅니다, `optional=false` 옵션은 이 관계가 반드시 존재해야 함을 나타낸다.
     // @JoinColumn(name = "userId") : 외래 키(Foreign Key)를 지정하는데 사용
