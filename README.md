@@ -36,7 +36,7 @@ Spring Boot
 
 ## 데모 페이지
 
-* https://project-board-kjs-d3410fdd6886.herokuapp.com/
+* 하로쿠 로그인 오류 조치 후 추가 예정
 
 ## 질문 , 건의
 
