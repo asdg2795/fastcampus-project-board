@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.fastcampus'
-version = '0.0.1-SNAPSHOT'
+version = 'v1.1'
 
 java {
     sourceCompatibility = '17'
@@ -65,4 +65,11 @@ tasks.withType(JavaCompile) {
 
 clean {
     delete file(querydslDir)
+}
+
+// Heroku 설정
+jar {
+    manifest {
+        attributes('Main-Class': 'com.fastcampus.projectboard.FastCampusProjectBoardApplication')
+    }
 }
