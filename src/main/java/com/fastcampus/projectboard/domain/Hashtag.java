@@ -17,11 +17,11 @@ import java.util.Set;
         @Index(columnList = "createdBy")
 })
 @Entity
-public class Hashtag extends AuditingFields{
+public class Hashtag extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "hashtags")
@@ -40,6 +40,7 @@ public class Hashtag extends AuditingFields{
         return new Hashtag(hashtagName);
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +50,7 @@ public class Hashtag extends AuditingFields{
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(this.getId());
     }
+
 }
