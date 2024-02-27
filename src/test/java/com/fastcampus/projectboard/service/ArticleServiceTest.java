@@ -1,4 +1,3 @@
-
 package com.fastcampus.projectboard.service;
 
 import com.fastcampus.projectboard.domain.Article;
