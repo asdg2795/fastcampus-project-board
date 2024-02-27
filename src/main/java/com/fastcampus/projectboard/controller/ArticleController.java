@@ -57,6 +57,8 @@ public class ArticleController {
         // 이 코드들은 뷰로 데이터를 전달하기 위해 `ModelMap` 객체에 데이터를 추가
         // `articles`, `paginationBarNumbers`, `searchTypes`라는 이름으로
         // 각각 글 목록, 페이지네이션 바 번호 목록, 검색 유형 목록을 추가
+        map.addAttribute("searchTypeHashtag", SearchType.HASHTAG);
+
         return "articles/index";
     }
     @GetMapping("/{articleId}")
@@ -83,6 +85,7 @@ public class ArticleController {
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentsResponse());
         map.addAttribute("totalCount", articleService.getArticleCount());
+        map.addAttribute("searchTypeHashtag", SearchType.HASHTAG);
         return "articles/detail";
     }
     @GetMapping("/search-hashtag")
