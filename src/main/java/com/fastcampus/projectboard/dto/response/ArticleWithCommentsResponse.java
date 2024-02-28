@@ -1,6 +1,5 @@
 package com.fastcampus.projectboard.dto.response;
 
-import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.dto.HashtagDto;
@@ -43,31 +42,6 @@ public record ArticleWithCommentsResponse(
                 dto.userAccountDto().userId(),
                 organizeChildComments(dto.articleCommentDtos())
         );
-
-    }
-
-    private static Set<ArticleCommentResponse> organizedChildComments(Set<ArticleCommentDto> dtos){
-        Map<Long, ArticleCommentResponse> map = dtos.stream()
-                .map(ArticleCommentResponse::from)
-                .collect(Collectors.toMap(ArticleCommentResponse::id, Function.identity()));
-
-        map.values().stream()
-                .filter(ArticleCommentResponse::hasParentComment)
-                .forEach(comment -> {
-                    ArticleCommentResponse parentComent = map.get(comment.parentCommentId());
-                    parentComent.childComments().add(comment);
-                });
-
-        return map.values().stream()
-                .filter(comment -> !comment.hasParentComment())
-                .collect(Collectors.toCollection(()->
-                        new TreeSet<>(Comparator
-                                .comparing(ArticleCommentResponse::createdAt)
-                                .reversed()
-                                .thenComparingLong(ArticleCommentResponse::id)
-                        )
-        ));
-
     }
 
 

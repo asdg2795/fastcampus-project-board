@@ -216,7 +216,6 @@ class ArticleControllerTest {
     @Test
     void givenNothing_whenRequesting_thenReturnsNewArticlePage() throws Exception {
         // Given
-
         // When & Then
         mvc.perform(get("/articles/form"))
                 .andExpect(status().isOk())
@@ -321,7 +320,6 @@ class ArticleControllerTest {
                 Set.of(HashtagDto.of("java"))
         );
     }
-
     private ArticleWithCommentsDto createArticleWithCommentsDto() {
         return ArticleWithCommentsDto.of(
                 1L,
