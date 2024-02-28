@@ -1,15 +1,12 @@
 package com.fastcampus.projectboard.dto.security;
-
 import com.fastcampus.projectboard.dto.UserAccountDto;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 public record BoardPrincipal(
         String username,
         String password,
@@ -36,7 +33,6 @@ public record BoardPrincipal(
                 memo
         );
     }
-
     public static BoardPrincipal from(UserAccountDto dto) {
         return BoardPrincipal.of(
                 dto.userId(),
@@ -46,7 +42,6 @@ public record BoardPrincipal(
                 dto.memo()
         );
     }
-
     public UserAccountDto toDto() {
         return UserAccountDto.of(
                 username,
@@ -56,26 +51,18 @@ public record BoardPrincipal(
                 memo
         );
     }
-
-
     @Override public String getUsername() { return username; }
     @Override public String getPassword() { return password; }
     @Override public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }
-
     @Override public boolean isAccountNonExpired() { return true; }
     @Override public boolean isAccountNonLocked() { return true; }
     @Override public boolean isCredentialsNonExpired() { return true; }
     @Override public boolean isEnabled() { return true; }
-
-
     public enum RoleType {
         USER("ROLE_USER");
-
         @Getter private final String name;
-
         RoleType(String name) {
             this.name = name;
         }
     }
-
 }

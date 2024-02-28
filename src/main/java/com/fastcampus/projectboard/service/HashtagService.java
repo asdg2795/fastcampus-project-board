@@ -16,11 +16,11 @@ import java.util.regex.Pattern;
 @Service
 public class HashtagService {
 
-    private final HashTagRepository hashTagRepository;
+    private final HashTagRepository hashtagRepository;
 
     @Transactional(readOnly = true)
     public Set<Hashtag> findHashtagsByNames(Set<String> hashtagNames) {
-        return new HashSet<>(hashTagRepository.findByHashtagNameIn(hashtagNames));
+        return new HashSet<>(hashtagRepository.findByHashtagNameIn(hashtagNames));
     }
 
     public Set<String> parseHashtagNames(String content) {
@@ -40,9 +40,9 @@ public class HashtagService {
     }
 
     public void deleteHashtagWithoutArticles(Long hashtagId) {
-        Hashtag hashtag = hashTagRepository.getReferenceById(hashtagId);
+        Hashtag hashtag = hashtagRepository.getReferenceById(hashtagId);
         if (hashtag.getArticles().isEmpty()) {
-            hashTagRepository.delete(hashtag);
+            hashtagRepository.delete(hashtag);
         }
     }
 
