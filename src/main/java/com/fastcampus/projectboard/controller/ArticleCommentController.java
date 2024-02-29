@@ -1,4 +1,5 @@
 package com.fastcampus.projectboard.controller;
+
 import com.fastcampus.projectboard.dto.request.ArticleCommentRequest;
 import com.fastcampus.projectboard.dto.security.BoardPrincipal;
 import com.fastcampus.projectboard.service.ArticleCommentService;
@@ -8,11 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @RequiredArgsConstructor
 @RequestMapping("/comments")
 @Controller
 public class ArticleCommentController {
+
     private final ArticleCommentService articleCommentService;
+
     @PostMapping("/new")
     public String postNewArticleComment(
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
@@ -30,6 +34,8 @@ public class ArticleCommentController {
             Long articleId
     ) {
         articleCommentService.deleteArticleComment(commentId, boardPrincipal.getUsername());
+
         return "redirect:/articles/" + articleId;
     }
+
 }

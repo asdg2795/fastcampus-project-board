@@ -1,4 +1,5 @@
 package com.fastcampus.projectboard.service;
+
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.domain.Hashtag;
@@ -29,10 +30,13 @@ import static org.mockito.BDDMockito.*;
 @DisplayName("비즈니스 로직 - 댓글")
 @ExtendWith(MockitoExtension.class)
 class ArticleCommentServiceTest {
+
     @InjectMocks private ArticleCommentService sut;
+
     @Mock private ArticleRepository articleRepository;
     @Mock private ArticleCommentRepository articleCommentRepository;
     @Mock private UserAccountRepository userAccountRepository;
+
     @DisplayName("게시글 ID로 조회하면, 해당하는 댓글 리스트를 반환한다.")
     @Test
     void givenArticleId_whenSearchingArticleComments_thenReturnsArticleComments() {
@@ -68,8 +72,10 @@ class ArticleCommentServiceTest {
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
         given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
+
         // When
         sut.saveArticleComment(dto);
+
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
         then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
@@ -83,8 +89,10 @@ class ArticleCommentServiceTest {
         // Given
         ArticleCommentDto dto = createArticleCommentDto("댓글");
         given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
+
         // When
         sut.saveArticleComment(dto);
+
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
         then(userAccountRepository).shouldHaveNoInteractions();
@@ -120,8 +128,10 @@ class ArticleCommentServiceTest {
         Long articleCommentId = 1L;
         String userId = "uno";
         willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_UserId(articleCommentId, userId);
+
         // When
         sut.deleteArticleComment(articleCommentId, userId);
+
         // Then
         then(articleCommentRepository).should().deleteByIdAndUserAccount_UserId(articleCommentId, userId);
     }
@@ -148,6 +158,7 @@ class ArticleCommentServiceTest {
                 "uno"
         );
     }
+
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 "uno",
@@ -182,6 +193,7 @@ class ArticleCommentServiceTest {
                 null
         );
     }
+
     private Article createArticle() {
         Article article = Article.of(
                 createUserAccount(),
@@ -193,7 +205,9 @@ class ArticleCommentServiceTest {
 
         return article;
     }
+
     private Hashtag createHashtag(Article article) {
         return Hashtag.of("java");
     }
+
 }
