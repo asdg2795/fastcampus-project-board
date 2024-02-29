@@ -1,4 +1,5 @@
 package com.fastcampus.projectboard.dto.request;
+
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
 
@@ -24,4 +25,5 @@ public record ArticleCommentRequest(
                 content
         );
     }
+
 }

@@ -26,6 +26,7 @@ public record ArticleResponse(
         if (nickname == null || nickname.isBlank()) {
             nickname = dto.userAccountDto().userId();
         }
+
         return new ArticleResponse(
                 dto.id(),
                 dto.title(),
@@ -40,3 +41,4 @@ public record ArticleResponse(
         );
     }
 }
+
