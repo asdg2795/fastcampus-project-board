@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import java.util.Objects;
-
 @Getter
 @ToString(callSuper = true)
 @Table(indexes = {
@@ -21,9 +20,7 @@ public class UserAccount extends AuditingFields {
     @Setter @Column(length = 100) private String email;
     @Setter @Column(length = 100) private String nickname;
     @Setter private String memo;
-
     protected UserAccount() {}
-
     private UserAccount(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
         this.userId = userId;
         this.userPassword = userPassword;
@@ -35,13 +32,12 @@ public class UserAccount extends AuditingFields {
     }
 
     public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo) {
-        return new UserAccount(userId, userPassword, email, nickname, memo, null);
+        return UserAccount.of(userId, userPassword, email, nickname, memo, null);
     }
 
     public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo, String createdBy) {
         return new UserAccount(userId, userPassword, email, nickname, memo, createdBy);
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
