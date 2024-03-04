@@ -20,7 +20,6 @@ import java.util.UUID;
 import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
@@ -29,6 +28,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/",
@@ -44,8 +44,10 @@ public class SecurityConfig {
                                 .userService(oAuth2UserService)
                         )
                 )
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
                 .build();
     }
+
     @Bean
     public UserDetailsService userDetailsService(UserAccountService userAccountService) {
         return username -> userAccountService
@@ -53,7 +55,6 @@ public class SecurityConfig {
                 .map(BoardPrincipal::from)
                 .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다 - username: " + username));
     }
-
     /**
      * <p>
      * OAuth 2.0 기술을 이용한 인증 정보를 처리한다.
@@ -94,7 +95,6 @@ public class SecurityConfig {
                     );
         };
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
