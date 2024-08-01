@@ -6,10 +6,10 @@
 
 ## 개발 환경
 
-* Intellij IDEA Ultimate 2022.1.1 ~ 2022.1.3
+* Intellij IDEA Ultimate 2022.3.1
 * Java 17
 * Gradle 7.4.1
-* Spring Boot 2.7.0
+* Spring Boot 3.2.2
 
 ## 기술 세부 스택
 
@@ -34,9 +34,6 @@ Spring Boot
 * BootStrap 5.2.0-Betal
 * Heroku
 
-## 데모 페이지
-
-* 하로쿠 로그인 오류 조치 후 추가 예정
 
 ## 질문 , 건의
 
